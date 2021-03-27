@@ -11,26 +11,26 @@ const privateKey = fs.readFileSync('/etc/letsencrypt/live/apiprod.ruzh.mx/privke
 const certificate = fs.readFileSync('/etc/letsencrypt/live/apiprod.ruzh.mx/cert.pem', 'utf8');
 const ca = fs.readFileSync('/etc/letsencrypt/live/apiprod.ruzh.mx/chain.pem', 'utf8');
 
+
 const credentials = {
   key: privateKey,
   cert: certificate,
   ca: ca
 };
 
+const stripe = require('stripe')(process.env.PRIVATE_KEY);
+
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-// Step 1 : Setup stripe
-const stripe = require('stripe')(process.env.PRIVATE_KEY);
-
-
 // Step 2 : Create a Customer before setup
+/*
 app.get('/v1/customers', async ( req, res) => {
 
   const customer = await stripe.customers.create({
@@ -43,10 +43,12 @@ app.get('/v1/customers', async ( req, res) => {
 
   res.status(200).json(customer)
 })
+*/
 
 //cus_JBgLGwpx7lzwke = Leonardo Tapia
 
 // Step 3 : Create a SetupIntent
+/*
 app.get('/v1/setup_itents', async ( req, res) => {
     const setupIntent = await stripe.setupIntents.create({
         payment_method_types: ['card'],
@@ -54,10 +56,10 @@ app.get('/v1/setup_itents', async ( req, res) => {
       });
     res.status(200).json(setupIntent)
 })
+*/
 
 
-
-
+/*
 app.get('/v1/payment_methods', async ( req, res) => {
   
   const result = await stripe.paymentMethods.list({
@@ -67,9 +69,9 @@ app.get('/v1/payment_methods', async ( req, res) => {
 
   res.status(200).json(result)
 })
+*/
 
-
-
+/*
 app.get('/v1/pay', async ( req, res) => {
   
 try {
@@ -95,7 +97,7 @@ try {
   
 })
 
-
+*/
 
 
 
